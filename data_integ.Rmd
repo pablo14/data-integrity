@@ -1,0 +1,105 @@
+# Fast data inspection for predictive modeling
+
+The new version of `funModeling` 1.9.2 was released aimed to have assistance during the prior step in creating machine learning models.
+
+**The problem**: Before modeling, we need to check/change numerical, categorical, NAs, one unique value and high cardinality variables.
+
+
+```{r, message=FALSE}
+# install.packages("funModeling")
+library(funModeling)
+```
+
+
+## Load the _messy_ data:
+
+<img src="https://blog.datascienceheroes.com/content/images/2019/09/messi.png" width="200px">
+
+
+```{r, message=FALSE}
+library(tidyverse)
+data=read_delim("messy_data.txt", delim = ';')
+
+```
+
+Now we call to `data_integrity` function, which returns an `integrity` object:
+
+```{r}
+di=data_integrity(data)
+```
+
+Then, `summary` function gives us a quick self-explanatory overview :
+
+```{r}
+summary(di)
+```
+
+Now we can apply `mutate_at`, `select`, or apply other function over certain and specific columns. 
+
+In case we need the variable name as a vector of strings, we can use the RStudio bare-combine add-in:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">My keyboard shortcut for this lil&#39; function gets quite the workout…<br>📺 &quot;hrbraddins::bare_combine()&quot; by <a href="https://twitter.com/hrbrmstr?ref_src=twsrc%5Etfw">@hrbrmstr</a> <a href="https://t.co/8dwqNEso0B">https://t.co/8dwqNEso0B</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://t.co/gyqz2mUE0Y">pic.twitter.com/gyqz2mUE0Y</a></p>&mdash; Mara Averick (@dataandme) <a href="https://twitter.com/dataandme/status/1155842512743030785?ref_src=twsrc%5Etfw">July 29, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+The high cardinality max value can be changed using the parameter `MAX_UNIQUE`
+
+
+## Accessing all the information
+
+If we print the integrity object, we can see a lot of information regarding `NA`, numerical, categorical and other types, alongside the high cardinality variables:
+
+```{r}
+di
+```
+
+And each object is accessible to operate quickly:
+
+```{r}
+di$results$vars_num
+```
+
+Numerical variables with `NA` values:
+
+```{r}
+di$results$vars_num_with_NA$variable
+```
+
+Help page:
+
+```{r}
+help("data_integrity")
+```
+
+
+# New `status` function
+
+This is the internal function used in `data_integrity`:
+
+```{r}
+status(heart_disease)
+```
+
+
+It's another version of `df_status`, where percentages are expressed in the range o 0 to 1 (not 0 to 100). More intuitive to use in filters
+
+This is the same object as `di$status_now`.
+
+## Next realase?
+
+It will contain, based on `data_integrity` automated data quality test according to the predictive model we need to run. Found this task quite important and repetitive when I teach. Hopefully it will save some time!
+
+#
+# Further reading
+
+All of these topics are covered in deep in the _Data Science Live Book_ `r emo::ji("green_book")`:
+
+- [Dataset status](https://livebook.datascienceheroes.com/exploratory-data-analysis.html#profiling)
+- [Data types in predictive modeling](https://livebook.datascienceheroes.com/data-preparation.html#data_types)
+- [High cardinallity variables](https://livebook.datascienceheroes.com/data-preparation.html#high_cardinality_predictive_modeling)
+- [Handling Missing data](https://livebook.datascienceheroes.com/data-preparation.html#missing_data)
+
+
+---
+
+Have fun! `r emo::ji("rocket")`
+
+`r emo::ji("mailbox_with_mail")` You can found me at: [Linkedin](https://www.linkedin.com/in/pcasas/) & [Twitter](https://twitter.com/pabloc_ds).
