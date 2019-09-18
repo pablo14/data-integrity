@@ -1,9 +1,19 @@
 # Fast data inspection for predictive modeling
 
-The new version of `funModeling` 1.9.2 was released aimed to have assistance during the prior step in creating machine learning models.
-
 **The problem**: Before modeling, we need to check/change numerical, categorical, NAs, one unique value and high cardinality variables.
 
+The new version of `funModeling` 1.9.2 was released aimed to have assistance during the prior step in creating machine learning models.
+
+## Introduction
+
+`data_integrity` function provide information about the format of all the variables, as well as some short stats about `NA` values. 
+
+This way we can select and transform the variables, keeping them in the format we need.
+
+
+```{r, message=FALSE, echo=FALSE}
+options("width"=100)
+```
 
 ```{r, message=FALSE}
 # install.packages("funModeling")
@@ -18,7 +28,7 @@ library(funModeling)
 
 ```{r, message=FALSE}
 library(tidyverse)
-data=read_delim("messy_data.txt", delim = ';')
+data=read_delim("https://raw.githubusercontent.com/pablo14/data-integrity/master/messy_data.txt", delim = ';')
 
 ```
 
@@ -85,10 +95,11 @@ This is the same object as `di$status_now`.
 
 ## Next realase?
 
-It will contain, based on `data_integrity` automated data quality test according to the predictive model we need to run. Found this task quite important and repetitive when I teach. Hopefully it will save some time!
+It will contain, based on `data_integrity`, an automated data quality test suited for the predictive model we need to run. 
+Found this task quite important and repetitive when I teach. Hopefully it will save some time!
 
-#
-# Further reading
+
+## Further reading
 
 All of these topics are covered in deep in the _Data Science Live Book_ `r emo::ji("green_book")`:
 
